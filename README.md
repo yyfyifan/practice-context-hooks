@@ -2,9 +2,11 @@
 
 
 
-This small project uses react context and react hooks to implement a naïve "todo" list application where the data is stored in local storage. The main purpose for this project is to get familiar with these two concepts below: 
+This small project uses react context and react hooks to implement a naïve "todo" list application where the data is stored in local storage. 
 
+* uuid package is used to generate unique id
 
+The main purpose for this project is to get familiar with these two concepts below: 
 
 * Context API
 
@@ -86,9 +88,9 @@ This small project uses react context and react hooks to implement a naïve "tod
 
   Tap into the inner workings of React in functional component.
 
-  Hooks are just special functions that do different things in functional component, the following 
+  Hooks are just special functions that do different things in functional component, like the following are vastly used:
 
   * `userState()`: use state within function components
-  * `useEffect()`: run code when a component (re)renders, just like componentDidMount and componentDidUpdate lifecycle methods
-  * `useContext():`
+  * `useEffect()`: run code when a component (re)renders, just like `componentDidMount` and `componentDidUpdate` lifecycle methods
+  * `useContext()`: consume context in a functional component
 

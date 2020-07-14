@@ -4,19 +4,23 @@ import Booklist from './components/Booklist';
 import ThemeContextProvider from './contexts/ThemeContext';
 import ThemeToggler from './components/ThemeToggler';
 import AuthContextProvider from './contexts/AuthContext';
+import Songlist from './components/Songlist';
+import { BookContextProvider } from './contexts/BookContext';
 
 function App() {
   return (
     <div className="App">
-      {/* 包裹两层provider, 谁里谁外没有关系 */}
       <ThemeContextProvider>
         <AuthContextProvider>
-          <Navbar />
-          <Booklist />
-          {/* 创建一个Toggle button用于改变context中的state */}
-          <ThemeToggler />
+          <BookContextProvider>
+            <Navbar />
+            <Booklist />
+            <ThemeToggler />
+          </BookContextProvider>
         </AuthContextProvider>
       </ThemeContextProvider>
+
+      <Songlist />
     </div>
   );
 }
