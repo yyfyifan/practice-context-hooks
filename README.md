@@ -1,68 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# README
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
+This small project uses react context and react hooks to implement a naïve "todo" list application where the data is stored in local storage. The main purpose for this project is to get familiar with these two concepts below: 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `yarn test`
+* Context API
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  Clean & easy way to 【share states】 between components. It also gives a central place to store states and allow components to use. The context API is an alternative to Redux.
 
-### `yarn build`
+  It achieves this functionality by providing a "context provider", which is a wrapper that wraps components that need access to the central context storage.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  使用习惯：
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+  1. create a separate `context` folder under `src` folder named context to keep tract of all context manipulation files
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  2. in the `context` folder, create each js file for a specific context storage, such as a `AuthContext.js ` and a `ThemeContext.js`
 
-### `yarn eject`
+  3. In each context file, first import the `createContext` function from `react` module, and use it to create a context Object
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+     ```js
+     export const AuthContext = createContext();
+     ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  4. create a component that wraps up all the children component in it using the context object's provider as the wrapper component.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+     Then store all the context data in the component's state and provide necessary handler to change the state
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+     ```js
+     class AuthContextProvider extends Component {
+         state = {
+             isAuthenticated: false
+         }
+     
+         toggleAuth = () => {
+             this.setState({ isAuthenticated: !this.state.isAuthenticated })
+         }
+     
+         render() {
+             return (
+                 <AuthContext.Provider value={{ ...this.state, toggleAuth: this.toggleAuth }}>
+                     {this.props.children}
+                 </AuthContext.Provider>
+             )
+         }
+     }
+     
+     export default AuthContextProvider;
+     ```
 
-## Learn More
+  5. in the component tree, wrap all the components that need access to the context data using the context provider component, such as
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+     ```jsx
+     <AuthContextProvider>
+         <Navbar />
+         <Booklist />
+         {/* 创建一个Toggle button用于改变context中的state */}
+         <ThemeToggler />
+     </AuthContextProvider>
+     ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+  6. in the wrapped component that needs to use the context, wrap the rendered result using a Consumer component provided by the same context object, and passing it a function inside it
 
-### Code Splitting
+     the function has a context object that stores all the data in it, and the return value should be the real rendered result
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+     ```jsx
+     class ThemeToggler extends Component {
+         // static contextType = ThemeContext
+     
+         render() {
+             return (
+                 <ThemeContext.Consumer>{context => {
+                         return (<button onClick={context.toggleTheme}>Toggle Theme</button>)
+                     }}
+                 </ThemeContext.Consumer>
+             )
+         }
+     }
+     ```
 
-### Analyzing the Bundle Size
+     
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+* Hooks
 
-### Making a Progressive Web App
+  Tap into the inner workings of React in functional component.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+  Hooks are just special functions that do different things in functional component, the following 
 
-### Advanced Configuration
+  * `userState()`: use state within function components
+  * `useEffect()`: run code when a component (re)renders, just like componentDidMount and componentDidUpdate lifecycle methods
+  * `useContext():`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
