@@ -93,4 +93,5 @@ The main purpose for this project is to get familiar with these two concepts bel
   * `userState()`: use state within function components
   * `useEffect()`: run code when a component (re)renders, just like `componentDidMount` and `componentDidUpdate` lifecycle methods
   * `useContext()`: consume context in a functional component
+  * `useReducer()`: reducer style of manipulating states
 

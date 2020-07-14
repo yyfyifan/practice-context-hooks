@@ -8,12 +8,17 @@ const BookDetail = ({ book }) => {
     const { bookDispatch } = useContext(BookContext);
 
     return (
-        <div className="card" onClick={() => bookDispatch({ type: actionTypes.DEL_BOOK, id: book.id })} >
-            <div className="card-body">
+        <li className="list-group-item list-group-item-action" onClick={() => bookDispatch({ type: actionTypes.DEL_BOOK, id: book.id })} >
+            <h3>
                 {book.title}
+            </h3>
+            <small>
                 {book.author}
-            </div>
-        </div>
+
+            </small>
+
+
+        </li>
     )
 }
 

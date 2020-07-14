@@ -11,10 +11,12 @@ const BookList = () => {
         return <h4>No books, have a relax.</h4>
     }
     return (
-        <div className="booklist">
-            {books.map(book => (
-                <BookDetail key={book.id} book={book} />
-            ))}
+        <div className="book-list">
+            <ul className="list-group">
+                {books.map(book => (
+                    <BookDetail key={book.id} book={book} />
+                ))}
+            </ul>
         </div>
     )
 }

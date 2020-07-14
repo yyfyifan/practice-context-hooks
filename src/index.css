@@ -5,10 +5,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  min-height: 100vh;
+  background-image: url(/public/background.jpg);
 }
 
 
-.card:hover {
+.book-list {
+  margin-bottom: 50px;
+}
+
+.book-form {
+  
+}
+
+.list-group-item:hover {
   text-decoration: line-through;
   cursor: pointer; 
+  
 }
